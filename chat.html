@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Messenger - Chat</title>
+
+	<!-- css -->
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+
+	<!-- fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700|Orbitron:400,500' rel='stylesheet' type='text/css'>
+
+	<!-- js -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	<script src="js/script.js"></script>
+
+	<script>
+		// lorsque ma page est chargée, je lance ma fonction
+		$( document ).ready(function(){
+			connectedUsers();
+
+		    setInterval(getMessages, 2000);
+		    setInterval(connectedUsers, 2000);
+
+			// VALIDATION DU MESSAGE LORSQUE L'ON PRESSE ENTER
+			$('#blabla-txt').keypress(function(e){
+			    if(e.which == 13){
+			        $('#blabla-box').submit();
+			    }
+			});
+		});
+		
+	</script>
+
+</head>
+<body>
+	<div class="container-chat">
+		<h2 class="title">Chatbox <span class="deconnexion-btn" onclick="logout()">Deconnexion</span></h2>
+
+		<div class="chatbox">
+			<div id="connect-users">
+			<h3>Membres connectés :</h3>
+				<ul id="list-users">
+					<!-- liste des utilisateurs -->
+				</ul>
+			</div>
+			<div id="messages-send">
+				<!-- mes messages -->
+			</div>
+			<form id="blabla-box" onsubmit="return sendMessages()">
+				<textarea name="blabla-txt" id="blabla-txt" cols="30" rows="3" maxlength="140" autofocus="autofocus"></textarea>
+				<input type="submit" id="send-message" value="Envoyer">
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>

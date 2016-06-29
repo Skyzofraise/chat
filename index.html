@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Messenger - Connexion</title>
+
+	<!-- css -->
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+
+	<!-- fonts -->
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,400italic,700|Orbitron:400,500' rel='stylesheet' type='text/css'>
+
+	<!-- js -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+	<script src="js/script.js"></script>
+	
+</head>
+<body>
+	
+	<section>
+		<div class="container-log">
+			<h2 class="title">Connexion</h2>
+			<form onsubmit="return connexion()" class="bloc-log" autocomplete="off">
+				<input type="text" name="user-name" id="user-name" placeholder="Nom d'utilisateur">
+				<input type="password" name="user-password" id="user-password" placeholder="Password">
+				<a class="connexion-inscription-link" href="inscription.html">Inscription</a>
+				<input type="submit" class="submit-form" value="Connexion" id="submit-connexion">
+			</form>
+		</div>
+	</section>
+
+	<div class="inexistant-user-container">
+		<h2 class="title">Utilisateur inexistant</h2>
+		<div class="inexistant-user">
+			<p>Ce nom d'utilisateur n'est pas enregistré.</p>
+			<p>Souhaitez-vous vous inscrire pour accéder au chat?</p>
+			<button id="yes" onclick="goToInscription()">Oui</button>
+			<button id="no" onclick="backHome()">Non</button>
+		</div>
+	</div>
+
+</body>
+</html>

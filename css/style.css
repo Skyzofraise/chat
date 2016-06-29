@@ -1,0 +1,69 @@
+body { width: 100%; margin: 0; padding: 0; background: url("../images/stars.png") repeat-y scroll 0 0 / 100% auto #024278; font-family: 'Lato', sans-serif; }
+
+/* TITRES */
+h2.title{ position: relative; margin: 0; padding: 10px 0; color: #FFF; font-family: 'Orbitron', sans-serif; letter-spacing: 3.5px; }
+h2.title::after{ content:' '; position: absolute; right: 0; bottom: -1px; display: inline-block; width: 30px; height: 30px; background: url( ../images/shape.svg ) no-repeat center /contain; }
+
+span.deconnexion-btn{ font-family: 'Lato', sans-serif; font-size: 12px; letter-spacing: normal; position: absolute; right: 34px; bottom: 6px; cursor: pointer; }
+  /***************************/
+ /* CONNEXION - INSCRIPTION */
+/***************************/ 
+
+.container-log{ width: 50vw; height: 264px; position: absolute; left: 50%; margin-left: -25vw; top: 50%; margin-top: -132px; }
+
+/*formulaire bloc-connexion*/
+form.bloc-log{ text-align: center; padding: 20px; background-color: rgba(0, 0, 0, 0.3); border-top: 2px solid rgba(255, 255, 255, 0.8); }
+/* mise en forme des champs de formulaire bloc-connexion */
+form.bloc-log input[type='text'], form.bloc-log input[type='password']{ width: 90%; height: 24px; display: block; margin: 20px auto; padding-left: 5%; background-color: transparent; border: 0; border-bottom: 1px solid #FFF; outline: none; color: #FFF; font-size: 14px; opacity: 0.75; transition: opacity: 0.3s;}
+form.bloc-log input[type='text']:hover, form.bloc-log input[type='password']:hover, 
+form.bloc-log input[type='text']:focus, form.bloc-log input[type='password']:focus{ opacity: 1; }
+form.bloc-log input[type='submit']{ display: inline-block; background-color: transparent; border: 1px solid #fff; color: #FFF; font-size: 14px; padding: 5px 20px; transition: all 0.3s; }
+form.bloc-log input[type='submit']:hover{ background-color: #FFF; color: #024278; }
+
+input#user-name{ background: transparent url('../images/space.svg') no-repeat left center; }
+input#user-password{ background: transparent url('../images/key.svg') no-repeat left center; }
+input.submit-form{ margin: 10px 0 ; opacity: 0.75; transition: all 0.3s; }
+input.submit-form:hover{ opacity: 1; color: #024278; background-color: #FFF; cursor: pointer;}
+
+/* formulaire  */
+form input[type="text"]::-webkit-input-placeholder, form input[type="password"]::-webkit-input-placeholder{ color: #FFF; }
+form input[type="text"]::-moz-placeholder, form input[type="password"]::-moz-placeholder{ color: #FFF; }
+form input[type="text"]:-moz-placeholder, form input[type="password"]:-moz-placeholder{ color: #FFF; }
+form input[type="text"]:-ms-input-placeholder, form input[type="password"]:-ms-input-placeholder { color: #FFF; }
+
+input#user-name:-webkit-autofill{ -webkit-box-shadow: 0 0 0px 1000px white inset;}
+
+/* connexion/inscription */
+a.connexion-inscription-link{ width: 95%; display: block; margin: auto; font-size: 12px; color: #FFF; text-align: left;  }
+
+.inexistant-user-container{ display:none; width: 50vw; height: 198px; position: absolute; left: 50%; margin-left: -25vw; top: 50%; margin-top: -99px; }
+.inexistant-user{ padding: 20px; background-color: rgba(0,0,0, 0.3); border-top: 2px solid rgba(255, 255, 255, 0.8); text-align: center; color: #FFF; }
+.inexistant-user p{ margin: 10px 0; }
+.inexistant-user button{ width: 60px; margin: 10px 0; background-color: transparent; border: 1px solid #FFF; color: #FFF; font-size: 14px; padding-left: 5px 20px; transition: all 0.3s; outline: none; }
+.inexistant-user button:hover{ background-color: #FFF; color: #024278; cursor: pointer; }
+.inexistant-user button#yes{ margin-right: 10px; }
+
+  /********/
+ /* CHAT */
+/********/
+
+.container-chat{ width: 80vw; height: 80vh; position: absolute; top: 50%; left: 50%; margin-top: -40vh; margin-left: -40vw; color: #FFF; }
+.chatbox{ width: 100%; height: 90%; position: relative; border-top: 2px solid #FFF; background-color: rgba(0, 0, 0, 0.3); }
+.chatbox::after{ content: ''; display: block; clear: both; }
+
+#connect-users{ box-sizing: border-box; width: 20%; height: 100%; padding: 2%; background-color: rgba( 00, 0, 0, 0.1); float: left; overflow-y: scroll; }
+#connect-users h3{ font-size: 18px; margin: 10px 0 10px; padding: 0 0 10px; border-bottom: 1px dashed rgba(255, 255, 255, 0.75); }
+#connect-users ul{ margin: 0; padding: 0; list-style-type: none; }
+#connect-users ul li{ padding: 6px 0; }
+
+#messages-send{ float: right; width: 80%; height: 88%; background-color: rgba(153,179,201, 0.1); overflow-y: scroll; }
+#messages-send p.message:first-child{ margin: 0;  }
+#messages-send p.message:nth-child(odd){ background-color: rgba(255, 255, 255, 0.1) }
+#messages-send p.message{ margin: 0; font-size: 14px; padding: 12px 10px; }
+#messages-send p.message span.pseudo-user{ border-bottom: 1px solid #fff; font-weight: bold; }
+
+#blabla-box{ float: right; width: 80%; height: 12%; background-color: rgba(255, 255, 255, 0.3); }
+#blabla-box::after{ content: ''; clear: both; display: block; }
+#blabla-box textarea#blabla-txt{ float: left; background-color: transparent; border: 0; width: 85%; height: 100%; outline: none; box-sizing: border-box; font-size: 14px; line-height: 1.4em; color: #FFF; padding: 10px 20px; resize: none; }
+#blabla-box input#send-message{ float: right; width: 15%; height: 100%; background-color: rgba(255, 255, 255, 0.5); border: 0; font-size: 16px;  font-family: 'Lato'; color: #024278; text-transform: uppercase; outline: none; transition: all 0.3s;  }
+#blabla-box input#send-message:hover{ cursor: pointer; background-color: rgba(255, 255, 255, 0.9); }

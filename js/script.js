@@ -64,7 +64,12 @@ function connexion(){
                 $('.inexistant-user-container').css('display', 'block');
 
             }else{
-                document.location.href="chat.html?token="+token+"&user_id="+user_id;
+                console.log(data.result.message);
+                var user_name_temp = data.result.message.split(" ");
+                console.log(user_name_temp);
+                var user_name = user_name_temp[2];
+                console.log(user_name);
+                document.location.href="chat.html?token="+token+"&user_id="+user_id+"&user_name="+user_name;
             }
 
         },
@@ -115,12 +120,10 @@ function connectedUsers(){
         dataType: "jsonp",
         
         success: function(data) {
-            console.log(data.result.user.length);
             var html ='';
             for( var i = 0; i<data.result.user.length; i++ ){
             	html +='<li>'+data.result.user[i]+'</li>';
             }
-            console.log(html);
             $('#list-users').html(html);
         },
         error: function() {
@@ -145,6 +148,10 @@ function getMessages(){
 	var token = $_GET(token);
 	var tokenString = token.token;
 
+    // récupération du nom de l'utilisateur
+    var user_name = $_GET(user_name);
+    var user_nameString = user_name.user_name;
+
     timeStamp = Math.floor((timeStamp/1000)-2);
     //console.log(timeStamp);
 
@@ -159,8 +166,13 @@ function getMessages(){
             }else{
                 // console.log('Messages new');
                 for( var i = 0; i<data.result.talk.length; i++ ){
-                    // écriture du message avec l'heure, le pseudo et le contenu du messsage
-                    $('#messages-send').append('<p class="message"><span class="date">['+ formattedTime +']</span> <span class="pseudo-user">'+data.result.talk[i].user_name+'</span> : '+data.result.talk[i].content+'</p>');
+                    console.log(data.result.talk[i].user_name);
+                    if (data.result.talk[i].user_name != user_nameString) {
+                        console.log('ça se voit pas');
+                        // écriture du message avec l'heure, le pseudo et le contenu du messsage
+                        $('#messages-send').append('<p class="message"><span class="date">['+ formattedTime +']</span> <span class="pseudo-user">'+data.result.talk[i].user_name+'</span> : '+data.result.talk[i].content+'</p>');
+                    }
+                    
                 }
                 // Descente automatique du scroll dans la div#messages-send pour voir le dernier message
                 $("#messages-send").scrollTop( $("#messages-send")[0].scrollHeight );
@@ -175,11 +187,28 @@ function getMessages(){
 
 // MESSAGES ENVOYÉS
 function sendMessages(){
+
+    // création du timestamp
+    var time = new Date();
+    var timeStamp = time.getTime();
+
+    // gestion de l'heure à affichée
+    var hours = time.getHours();
+    var min = "0"+ time.getMinutes();
+    var seconds = "0"+ time.getSeconds();
+    var formattedTime = hours + ':' + min.substr(-2) + ':' + seconds.substr(-2);
+
 	var token = $_GET(token);
 	var tokenString = token.token;
+
 	// Récupération de l'id dans l'url
 	var user_id = $_GET(user_id);
 	var user_id = user_id.user_id;
+
+    // récupération du nom de l'utilisateur
+    var user_name = $_GET(user_name);
+    var user_nameString = user_name.user_name;
+
 	var message = encodeURI( $('#blabla-txt').val() );
 
 	$.ajax({
@@ -188,7 +217,9 @@ function sendMessages(){
         dataType: "jsonp",
 
 		success: function(data){
-			$('#blabla-txt').val('');
+            var msg = $('#blabla-txt').val();
+            $('#messages-send').append('<p class="message"><span class="date">['+ formattedTime +']</span> <span class="pseudo-user">'+user_nameString+'</span> : '+msg+'</p>');
+            $('#blabla-txt').val('');
 		},
 		error: function(){
 			console.log('erreur ajax sendMessages!');

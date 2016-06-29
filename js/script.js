@@ -22,7 +22,11 @@ function inscription() {
             var token = data.result.token;
             var user_id = data.result.id
             // et on redirige vers la page de chat avec les paramètres dans l'url
-            document.location.href="chat.html?token="+token+"&user_id="+user_id;
+            
+            var user_name_temp = data.result.message.split(" ");
+            var user_name = user_name_temp[0];
+            document.location.href="chat.html?token="+token+"&user_id="+user_id+"&user_name="+user_name;
+            
         },
         error: function() {
             console.log('erreur ajax inscription');
@@ -64,11 +68,8 @@ function connexion(){
                 $('.inexistant-user-container').css('display', 'block');
 
             }else{
-                console.log(data.result.message);
                 var user_name_temp = data.result.message.split(" ");
-                console.log(user_name_temp);
                 var user_name = user_name_temp[2];
-                console.log(user_name);
                 document.location.href="chat.html?token="+token+"&user_id="+user_id+"&user_name="+user_name;
             }
 
@@ -79,14 +80,6 @@ function connexion(){
     });
 
     return false;
-}
-
-function goToInscription(){
-    document.location.href="inscription.html";
-}
-
-function backHome(){
-    document.location.href="index.html";
 }
 
 // PAGE DE CHAT //
@@ -153,7 +146,6 @@ function getMessages(){
     var user_nameString = user_name.user_name;
 
     timeStamp = Math.floor((timeStamp/1000)-2);
-    //console.log(timeStamp);
 
 	$.ajax({
 		url: 'http://greenvelvet.alwaysdata.net/kwick/api/talk/list/'+tokenString+'/'+timeStamp,
@@ -161,18 +153,12 @@ function getMessages(){
         dataType: "jsonp",
 
 		success: function(data){
-            if (data.result.last_timestamp == null) {
-                // console.log('Pas de nouveaux messages');
-            }else{
-                // console.log('Messages new');
+            if (data.result.last_timestamp !== null) {
                 for( var i = 0; i<data.result.talk.length; i++ ){
-                    console.log(data.result.talk[i].user_name);
                     if (data.result.talk[i].user_name != user_nameString) {
-                        console.log('ça se voit pas');
                         // écriture du message avec l'heure, le pseudo et le contenu du messsage
                         $('#messages-send').append('<p class="message"><span class="date">['+ formattedTime +']</span> <span class="pseudo-user">'+data.result.talk[i].user_name+'</span> : '+data.result.talk[i].content+'</p>');
                     }
-                    
                 }
                 // Descente automatique du scroll dans la div#messages-send pour voir le dernier message
                 $("#messages-send").scrollTop( $("#messages-send")[0].scrollHeight );
@@ -232,6 +218,7 @@ function sendMessages(){
 function logout(){
     var token = $_GET(token);
     var tokenString = token.token;
+
     var user_id = $_GET(user_id);
     var user_id = user_id.user_id;
 

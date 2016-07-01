@@ -37,6 +37,7 @@ function inscription() {
 }
 
 function connexion(){
+
     // récupération des valeurs des input de connexion
 	var userName = $('#user-name').val();
     var userPassword = $('#user-password').val();
@@ -82,6 +83,29 @@ function connexion(){
     return false;
 }
 
+// DECONNEXION
+function logout(){
+
+    // récupération des éléments token et id
+    var tokenString = tokenTake();
+    var user_id = idTake();
+
+    $.ajax({
+        url: 'http://greenvelvet.alwaysdata.net/kwick/api/logout/'+tokenString+'/'+user_id,
+        type: 'GET',
+        dataType: "jsonp",
+
+        success: function(data){
+            console.log('deconnexion success');
+            document.location.href="index.html";
+        },
+        error: function(){
+            console.log('erreur ajax not deconnected!');
+        }
+    });
+    return false;   
+}
+
 // PAGE DE CHAT //
 // Récupération du token dans l'url
 //https://www.creativejuiz.fr/blog/javascript/recuperer-parametres-get-url-javascript
@@ -93,19 +117,51 @@ function $_GET(param) {
 			vars[key] = value !== undefined ? value : '';
 		}
 	);
-
 	if ( param ) {
 		return vars[param] ? vars[param] : null;	
 	}
 	return vars;
 }
 
+// FONCTIONS DE RÉCUPÉRATION D'ÉLEMENTS D'URL
+// récupération du token
+function tokenTake () {
+     var token = $_GET(token);
+     var tokenString = token.token;
+
+     return tokenString; 
+}
+// récupération du nom d'user
+function userTake () {
+     var user_name = $_GET(user_name);
+     var user_nameString = user_name.user_name;
+
+     return user_nameString; 
+}
+// récupération de l'id user
+function idTake() {
+    var user_id = $_GET(user_id);
+    var user_id = user_id.user_id;
+
+    return user_id;
+}
+// format date
+function DateFormat(){
+    var time = new Date();
+    var hours = time.getHours();
+    var min = "0"+ time.getMinutes();
+    var seconds = "0"+ time.getSeconds();
+    var formattedTime = hours + ':' + min.substr(-2) + ':' + seconds.substr(-2);
+
+    return formattedTime;
+}
+
 // UTILISATEURS CONNECTÉS
 function connectedUsers(){
-	// Récupération du token dans l'url
-	var token = $_GET(token);
-	// conversion en chaîne de caractères pour le traitement en Ajax
-	var tokenString = token.token;
+
+    // récupération des éléments token et name
+    var tokenString = tokenTake();
+    var user_nameString = userTake();
 
 	$.ajax({
         url: 'http://greenvelvet.alwaysdata.net/kwick/api/user/logged/'+tokenString,
@@ -113,10 +169,22 @@ function connectedUsers(){
         dataType: "jsonp",
         
         success: function(data) {
+
+            // création d'une variable qui va emmagasiner la liste des utilisateurs qui ne sera affichée qu'une fois
             var html ='';
+
             for( var i = 0; i<data.result.user.length; i++ ){
-            	html +='<li>'+data.result.user[i]+'</li>';
+            	
+                if( user_nameString == data.result.user[i]){
+                    html +='<li id="current_user">'+data.result.user[i]+'</li>';
+                }else{
+                    html +='<li>'+data.result.user[i]+'</li>';
+                }
             }
+
+            // affichage du nombre d'utilisateurs
+            $('#connect-users h3 span').html(data.result.user.length+' ');
+            // affiche la liste des utilisateurs
             $('#list-users').html(html);
         },
         error: function() {
@@ -127,23 +195,14 @@ function connectedUsers(){
 
 // MESSAGES REÇUS
 function getMessages(){
-    // création du timestamp
-	var time = new Date();
+    // heure
+    var time = new Date();
     var timeStamp = time.getTime();
-   
-    // gestion de l'heure à affichée
-    var hours = time.getHours();
-    var min = "0"+ time.getMinutes();
-    var seconds = "0"+ time.getSeconds();
-    var formattedTime = hours + ':' + min.substr(-2) + ':' + seconds.substr(-2);
+    var formattedTime = DateFormat();
 	
-    // récupération du token
-	var token = $_GET(token);
-	var tokenString = token.token;
-
-    // récupération du nom de l'utilisateur
-    var user_name = $_GET(user_name);
-    var user_nameString = user_name.user_name;
+    // récupération des éléments token et name
+    var tokenString = tokenTake();
+    var user_nameString = userTake();
 
     timeStamp = Math.floor((timeStamp/1000)-2);
 
@@ -158,6 +217,9 @@ function getMessages(){
                     if (data.result.talk[i].user_name != user_nameString) {
                         // écriture du message avec l'heure, le pseudo et le contenu du messsage
                         $('#messages-send').append('<p class="message"><span class="date">['+ formattedTime +']</span> <span class="pseudo-user">'+data.result.talk[i].user_name+'</span> : '+data.result.talk[i].content+'</p>');
+                        
+                        timeStamp = data.result.last_timestamp;
+                        
                     }
                 }
                 // Descente automatique du scroll dans la div#messages-send pour voir le dernier message
@@ -173,29 +235,18 @@ function getMessages(){
 
 // MESSAGES ENVOYÉS
 function sendMessages(){
-
-    // création du timestamp
+    // heure
     var time = new Date();
     var timeStamp = time.getTime();
+    var formattedTime = DateFormat();
 
-    // gestion de l'heure à affichée
-    var hours = time.getHours();
-    var min = "0"+ time.getMinutes();
-    var seconds = "0"+ time.getSeconds();
-    var formattedTime = hours + ':' + min.substr(-2) + ':' + seconds.substr(-2);
+    // récupération des éléments token, id et name
+    var tokenString = tokenTake();
+    var user_id = idTake();
+    var user_nameString = userTake();
 
-	var token = $_GET(token);
-	var tokenString = token.token;
-
-	// Récupération de l'id dans l'url
-	var user_id = $_GET(user_id);
-	var user_id = user_id.user_id;
-
-    // récupération du nom de l'utilisateur
-    var user_name = $_GET(user_name);
-    var user_nameString = user_name.user_name;
-
-	var message = encodeURI( $('#blabla-txt').val() );
+    var message = $('#blabla-txt').val();
+	message = encodeURIComponent( message );
 
 	$.ajax({
 		url: 'http://greenvelvet.alwaysdata.net/kwick/api/say/'+tokenString+'/'+user_id+'/'+message,
@@ -214,27 +265,4 @@ function sendMessages(){
 	return false;	
 }
 
-// DECONNEXION
-function logout(){
-    var token = $_GET(token);
-    var tokenString = token.token;
 
-    var user_id = $_GET(user_id);
-    var user_id = user_id.user_id;
-
-    $.ajax({
-        url: 'http://greenvelvet.alwaysdata.net/kwick/api/logout/'+tokenString+'/'+user_id,
-        type: 'GET',
-        dataType: "jsonp",
-
-        success: function(data){
-            console.log('deconnexion success');
-            document.location.href="index.html";
-        },
-        error: function(){
-            console.log('erreur ajax not deconnected!');
-        }
-    });
-    return false;   
-
-}

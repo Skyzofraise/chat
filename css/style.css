@@ -4,24 +4,27 @@ body { width: 100%; margin: 0; padding: 0; background: url("../images/stars.png"
 h2.title{ position: relative; margin: 0; padding: 10px 0; color: #FFF; font-family: 'Orbitron', sans-serif; letter-spacing: 3.5px; }
 h2.title::after{ content:' '; position: absolute; right: 0; bottom: -1px; display: inline-block; width: 30px; height: 30px; background: url( ../images/shape.svg ) no-repeat center /contain; }
 
-span.deconnexion-btn{ font-family: 'Lato', sans-serif; font-size: 12px; letter-spacing: normal; position: absolute; right: 34px; bottom: 6px; cursor: pointer; }
+span.deconnexion-btn{ font-family: 'Lato', sans-serif; font-size: 12px; letter-spacing: normal; position: absolute; right: 34px; bottom: 6px; cursor: pointer; transition: color 0.3s; }
+span.deconnexion-btn:hover{ color: #80a0bb; }
   /***************************/
  /* CONNEXION - INSCRIPTION */
 /***************************/ 
 
-.container-log{ width: 50vw; height: 264px; position: absolute; left: 50%; margin-left: -25vw; top: 50%; margin-top: -132px; }
+.container-log{ width: 600px; height: 264px; position: absolute; left: 50%; margin-left: -300px; top: 50%; margin-top: -132px; }
 
 /*formulaire bloc-connexion*/
 form.bloc-log{ text-align: center; padding: 20px; background-color: rgba(0, 0, 0, 0.3); border-top: 2px solid rgba(255, 255, 255, 0.8); }
 /* mise en forme des champs de formulaire bloc-connexion */
-form.bloc-log input[type='text'], form.bloc-log input[type='password']{ width: 90%; height: 24px; display: block; margin: 20px auto; padding-left: 5%; background-color: transparent; border: 0; border-bottom: 1px solid #FFF; outline: none; color: #FFF; font-size: 14px; opacity: 0.75; transition: opacity: 0.3s;}
+
+form.bloc-log span{ display: block; width: 90%; margin: 20px auto; border-bottom: 1px solid #FFF; text-align: left; }
+form.bloc-log span img{ max-width: 24px; display: inline-block; margin-bottom: -6px; max-height: 24px; }
+
+form.bloc-log input[type='text'], form.bloc-log input[type='password']{ width: 90%; height: 24px; display: inline-block; background-color: transparent; border: 0; outline: none; color: #FFF; font-size: 14px; opacity: 0.75; transition: opacity 0.3s;}
 form.bloc-log input[type='text']:hover, form.bloc-log input[type='password']:hover, 
 form.bloc-log input[type='text']:focus, form.bloc-log input[type='password']:focus{ opacity: 1; }
 form.bloc-log input[type='submit']{ display: inline-block; background-color: transparent; border: 1px solid #fff; color: #FFF; font-size: 14px; padding: 5px 20px; transition: all 0.3s; }
 form.bloc-log input[type='submit']:hover{ background-color: #FFF; color: #024278; }
 
-input#user-name{ background: transparent url('../images/space.svg') no-repeat left center; }
-input#user-password{ background: transparent url('../images/key.svg') no-repeat left center; }
 input.submit-form{ margin: 10px 0 ; opacity: 0.75; transition: all 0.3s; }
 input.submit-form:hover{ opacity: 1; color: #024278; background-color: #FFF; cursor: pointer;}
 
@@ -32,11 +35,12 @@ form input[type="text"]:-moz-placeholder, form input[type="password"]:-moz-place
 form input[type="text"]:-ms-input-placeholder, form input[type="password"]:-ms-input-placeholder { color: #FFF; }
 
 input#user-name:-webkit-autofill{ -webkit-box-shadow: 0 0 0px 1000px white inset;}
+input#user-password:-webkit-autofill{ -webkit-box-shadow: 0 0 0px 1000px white inset; }
 
 /* connexion/inscription */
-a.connexion-inscription-link{ width: 95%; display: block; margin: auto; font-size: 12px; color: #FFF; text-align: left;  }
+a.connexion-inscription-link{ width: 90%; display: block; margin: auto; font-size: 12px; color: #FFF; text-align: left;  }
 
-.inexistant-user-container{ display:none; width: 50vw; height: 198px; position: absolute; left: 50%; margin-left: -25vw; top: 50%; margin-top: -99px; }
+.inexistant-user-container{ display:none; width: 600px; height: 198px; position: absolute; left: 50%; margin-left: -300px; top: 50%; margin-top: -99px; }
 .inexistant-user{ padding: 20px; background-color: rgba(0,0,0, 0.3); border-top: 2px solid rgba(255, 255, 255, 0.8); text-align: center; color: #FFF; }
 .inexistant-user p{ margin: 10px 0; }
 .inexistant-user button{ width: 60px; margin: 10px 0; background-color: transparent; border: 1px solid #FFF; color: #FFF; font-size: 14px; padding-left: 5px 20px; transition: all 0.3s; outline: none; }
@@ -52,18 +56,62 @@ a.connexion-inscription-link{ width: 95%; display: block; margin: auto; font-siz
 .chatbox::after{ content: ''; display: block; clear: both; }
 
 #connect-users{ box-sizing: border-box; width: 20%; height: 100%; padding: 2%; background-color: rgba( 00, 0, 0, 0.1); float: left; overflow-y: scroll; }
-#connect-users h3{ font-size: 18px; margin: 10px 0 10px; padding: 0 0 10px; border-bottom: 1px dashed rgba(255, 255, 255, 0.75); }
+#connect-users h3{ font-size: 18px; margin: 0px 0 10px; padding: 0 0 10px; border-bottom: 1px dashed rgba(255, 255, 255, 0.75); }
 #connect-users ul{ margin: 0; padding: 0; list-style-type: none; }
 #connect-users ul li{ padding: 6px 0; }
+#connect-users ul li#current_user{ font-weight: bold; text-decoration: underline; }
 
-#messages-send{ float: right; width: 80%; height: 88%; background-color: rgba(153,179,201, 0.1); overflow-y: scroll; }
+#messages-send{ float: right; width: 80%; height: 90%; background-color: rgba(153,179,201, 0.1); overflow-y: scroll; }
 #messages-send p.message:first-child{ margin: 0;  }
 #messages-send p.message:nth-child(odd){ background-color: rgba(255, 255, 255, 0.1) }
 #messages-send p.message{ margin: 0; font-size: 14px; padding: 12px 10px; }
 #messages-send p.message span.pseudo-user{ border-bottom: 1px solid #fff; font-weight: bold; }
 
-#blabla-box{ float: right; width: 80%; height: 12%; background-color: rgba(255, 255, 255, 0.3); }
+#blabla-box{ float: right; width: 80%; height: 10%; background-color: rgba(255, 255, 255, 0.3); }
 #blabla-box::after{ content: ''; clear: both; display: block; }
 #blabla-box textarea#blabla-txt{ float: left; background-color: transparent; border: 0; width: 85%; height: 100%; outline: none; box-sizing: border-box; font-size: 14px; line-height: 1.4em; color: #FFF; padding: 10px 20px; resize: none; }
 #blabla-box input#send-message{ float: right; width: 15%; height: 100%; background-color: rgba(255, 255, 255, 0.5); border: 0; font-size: 16px;  font-family: 'Lato'; color: #024278; text-transform: uppercase; outline: none; transition: all 0.3s;  }
 #blabla-box input#send-message:hover{ cursor: pointer; background-color: rgba(255, 255, 255, 0.9); }
+
+
+@media (max-width: 960px){
+	
+	.container-chat{ width: 90vw; margin-left: -45vw; }
+	#connect-users ul li{ font-size: 14px; }
+	#blabla-box input#send-message{font-size: 14px;}
+}
+
+@media( max-width: 720px ){
+	.container-chat{ width: 98vw; margin-left: -49vw;}
+	#blabla-box input#send-message{font-size: 14px;}
+}
+
+@media ( width: 640px ){
+	#connect-users{ width: 25%; }
+	#messages-send{ width: 75%; }
+	#blabla-box{ width: 75%; }
+	#blabla-box textarea#blabla-txt{ width: 80%; }
+	#blabla-box input#send-message{ width: 20%; font-size: 12px; }
+}
+
+@media ( max-width: 600px ) {
+	.container-log{ width: 90%; left: 50%; margin-left: -45%; }
+	.inexistant-user-container{ width: 90%; left: 50%; margin-left: -45%; }
+
+	.container-chat{ margin-top: 10px; top: 0; height: 100%; }
+	.chatbox{ background: none; }
+	#connect-users{ width: 100%; float: none; height: auto; max-height: 100px; border-bottom: 2px solid #FFF; }
+	#connect-users h3{ display: inline-block; border-bottom: 0; font-size: 14px; margin: 0; padding: 0; }
+	#connect-users ul{ display: inline-block; }
+	#connect-users ul li{ display: inline-block; }
+	#connect-users ul li::after{content: ', '; margin-right: 5px;}
+	#connect-users ul li:last-child::after{ content: ''; margin-right: 0; }
+	#messages-send{ width: 100%; float: none; height: auto; }
+	#blabla-box{ width: 100%; float: none; position: absolute; bottom: 0; height: 40px; }
+	#blabla-box textarea#blabla-txt{ width: 70%; }
+	#blabla-box input#send-message{ width: 30%; }
+
+}
+@media ( max-width: 400px ){
+	form.bloc-log input[type='text'], form.bloc-log input[type='password']{ width: 88%;}
+}

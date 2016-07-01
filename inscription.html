@@ -15,6 +15,9 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 	<script src="js/script.js"></script>
 
+	<!-- meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+
 </head>
 <body>
 	
@@ -22,8 +25,14 @@
 		<div class="container-log">
 			<h2 class="title">Inscription</h2>
 			<form onsubmit="return inscription()" class="bloc-log">
-				<input type="text" id="user-name" name="user-name" placeholder="Nom d'utilisateur">
-				<input type="password" name="user-password" id="user-password" placeholder="Password">
+				<span class="user-name-icone"> 
+					<img src="images/space.svg" alt="space-user">
+					<input type="text" name="user-name" id="user-name" placeholder="Nom d'utilisateur">
+				</span>
+				<span class="password-icone"> 
+					<img src="images/key.svg" alt="space-user">
+					<input type="password" name="user-password" id="user-password" placeholder="Password">
+				</span>
 				<a class="connexion-inscription-link" href="index.html">Connexion</a>
 				<input type="submit" class="submit-form" value="Inscription" id="submit-connexion">
 			</form>

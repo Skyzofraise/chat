@@ -15,12 +15,15 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
 	<script src="js/script.js"></script>
 
+	<!-- meta -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+
 	<script>
 		// lorsque ma page est chargée, je lance ma fonction
 		$( document ).ready(function(){
 			connectedUsers();
 
-		    setInterval(getMessages, 2000);
+		    setInterval(getMessages, 1500);
 		    setInterval(connectedUsers, 2000);
 
 			// VALIDATION DU MESSAGE LORSQUE L'ON PRESSE ENTER
@@ -40,13 +43,14 @@
 
 		<div class="chatbox">
 			<div id="connect-users">
-			<h3>Membres connectés :</h3>
+			<h3><span></span>Users :</h3>
 				<ul id="list-users">
 					<!-- liste des utilisateurs -->
 				</ul>
 			</div>
 			<div id="messages-send">
 				<!-- mes messages -->
+				<p class="message">Bienvenue sur le chat, merci d'y rester poli, courtois et de ne pas parler comme un putois.</p>
 			</div>
 			<form id="blabla-box" onsubmit="return sendMessages()">
 				<textarea name="blabla-txt" id="blabla-txt" cols="30" rows="3" maxlength="140" autofocus="autofocus"></textarea>
